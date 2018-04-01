@@ -1,0 +1,24 @@
+plugins {
+    id "java-library"
+    id "me.champeau.gradle.jmh" version "0.4.5"
+}
+version = "1.0.0"
+task wrapper(type: Wrapper) {
+    gradleVersion "4.6"
+}
+dependencies {
+    testImplementation "junit:junit:4.12"
+    testCompile "com.google.truth:truth:0.40"
+}
+
+repositories {
+    jcenter()
+}
+jmh {
+    jvmArgs = ["-server"]
+    benchmarkMode = ["thrpt"]
+    warmupIterations = 10
+    iterations = 10
+    fork = 1
+    threads = 1
+}
