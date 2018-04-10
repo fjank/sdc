@@ -1,8 +1,7 @@
-package org.fjank.sdc;
+package io.github.fjank.sdc;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
-import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -15,7 +14,7 @@ import java.util.List;
  * possible.
  * @author Frank Karlstrøm - frank.karlstrom@gmail.com
  */
-public class KeyPointFilterBenchmark {
+public class KeyPointFilterBenchmark2 {
     /**
      * The actual benchmark for the filter. filters the list to get the best ~1500 points.
      * This should at least keep a speed of ~1000 ops/sec.
@@ -24,19 +23,22 @@ public class KeyPointFilterBenchmark {
      */
     @Benchmark
     public List<KeyPoint> benchmarkFilterByRadius(KeyPointFilterState state) {
-        return state.filter.filterByRadius(state.radius, state.list);
+        List<KeyPoint> returnValue = new ArrayList<>();
+        int radius = 12;
+        while (returnValue.size() < 1000) {
+            returnValue = state.filter.filterByRadius(radius, state.list);
+            radius -= 2;
+            if (radius == 0) {
+                break;
+            }
+        }
+        return returnValue;
 
     }
 
     /** The state object for this benchmark, that keeps the list of points in memory. */
     @State(Scope.Thread)
     public static class KeyPointFilterState {
-        @Param({"5", "10", "15", "20"})
-        private int radius;
-        @Param({"512", "1024", "2048", "4096"})
-        private int matrixSize;
-
-        private static final int NUMBER_OF_POINTS = 12_000;
         private static final int RESPONSE_RANGE = 255;
         private List<KeyPoint> list;
         private KeyPointFilter filter;
@@ -48,13 +50,13 @@ public class KeyPointFilterBenchmark {
         @Setup(Level.Trial)
         public void doSetup() {
             this.list = new ArrayList<>();
-            for (int i = 0; i < NUMBER_OF_POINTS; i++) {
-                int x = (int) (Math.random() * matrixSize);
-                int y = (int) (Math.random() * matrixSize);
+            for (int i = 0; i < 3000; i++) {
+                int x = (int) (Math.random() * 640);
+                int y = (int) (Math.random() * 480);
                 float response = (float) (Math.random() * RESPONSE_RANGE);
                 list.add(new DefaultKeyPoint(x, y, response));
             }
-            this.filter = new KeyPointFilter(matrixSize, matrixSize);
+            this.filter = new KeyPointFilter(640, 480);
         }
     }
 }

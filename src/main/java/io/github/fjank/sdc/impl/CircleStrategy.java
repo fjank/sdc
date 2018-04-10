@@ -1,4 +1,4 @@
-package org.fjank.sdc.impl;
+package io.github.fjank.sdc.impl;
 
 /**
  * Strategy interface for filling circles at a specific point.

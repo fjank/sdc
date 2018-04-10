@@ -1,4 +1,4 @@
-package org.fjank.sdc;
+package io.github.fjank.sdc;
 
 import org.junit.Test;
 

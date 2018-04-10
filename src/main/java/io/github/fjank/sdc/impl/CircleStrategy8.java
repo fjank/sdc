@@ -1,4 +1,4 @@
-package org.fjank.sdc.impl;
+package io.github.fjank.sdc.impl;
 
 /**
  * Specific strategy for filling a 10 radius circle. Uses the same points as The generic strategy.

@@ -1,4 +1,4 @@
-package org.fjank.sdc;
+package io.github.fjank.sdc;
 
 /**
  * Represents a KeyPoint i.e. a point feature found by one of many available KeyPoint

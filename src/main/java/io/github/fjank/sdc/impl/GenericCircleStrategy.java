@@ -1,4 +1,4 @@
-package org.fjank.sdc.impl;
+package io.github.fjank.sdc.impl;
 
 /**
  * A generic circle filling strategy that uses Bresenham algorithm to find the points that encloses the circle.

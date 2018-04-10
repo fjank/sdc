@@ -1,17 +1,17 @@
-package org.fjank.sdc;
+package io.github.fjank.sdc;
 
-import org.fjank.sdc.impl.CircleStrategy;
-import org.fjank.sdc.impl.CircleStrategy1;
-import org.fjank.sdc.impl.CircleStrategy10;
-import org.fjank.sdc.impl.CircleStrategy2;
-import org.fjank.sdc.impl.CircleStrategy3;
-import org.fjank.sdc.impl.CircleStrategy4;
-import org.fjank.sdc.impl.CircleStrategy5;
-import org.fjank.sdc.impl.CircleStrategy6;
-import org.fjank.sdc.impl.CircleStrategy7;
-import org.fjank.sdc.impl.CircleStrategy8;
-import org.fjank.sdc.impl.CircleStrategy9;
-import org.fjank.sdc.impl.GenericCircleStrategy;
+import io.github.fjank.sdc.impl.CircleStrategy;
+import io.github.fjank.sdc.impl.GenericCircleStrategy;
+import io.github.fjank.sdc.impl.CircleStrategy1;
+import io.github.fjank.sdc.impl.CircleStrategy10;
+import io.github.fjank.sdc.impl.CircleStrategy2;
+import io.github.fjank.sdc.impl.CircleStrategy3;
+import io.github.fjank.sdc.impl.CircleStrategy4;
+import io.github.fjank.sdc.impl.CircleStrategy5;
+import io.github.fjank.sdc.impl.CircleStrategy6;
+import io.github.fjank.sdc.impl.CircleStrategy7;
+import io.github.fjank.sdc.impl.CircleStrategy8;
+import io.github.fjank.sdc.impl.CircleStrategy9;
 
 import java.util.ArrayList;
 import java.util.List;

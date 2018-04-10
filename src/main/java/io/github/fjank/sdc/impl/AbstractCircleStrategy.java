@@ -1,4 +1,4 @@
-package org.fjank.sdc.impl;
+package io.github.fjank.sdc.impl;
 
 /**
  * Abstract class for the specific circle strategies.

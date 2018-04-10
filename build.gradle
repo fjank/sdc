@@ -1,8 +1,12 @@
 plugins {
     id "java-library"
     id "me.champeau.gradle.jmh" version "0.4.5"
+    id "com.jfrog.bintray" version "1.7.3"
 }
+apply plugin: 'maven-publish'
+
 version = "1.0.0"
+group = "io.github.fjank"
 task wrapper(type: Wrapper) {
     gradleVersion "4.6"
 }
@@ -21,4 +25,85 @@ jmh {
     iterations = 10
     fork = 1
     threads = 1
+}
+
+// Configuration for uploading to bintray and publishing to maven central and jcenter.
+bintray {
+    user = BINTRAY_USER
+    key = BINTRAY_KEY
+    publish = true
+    override = true
+    publications = ['SdcPublication']
+    pkg {
+        repo = 'maven'
+        name = 'sdc'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/fjank/sdc.git'
+        version {
+            name = "$project.name-$project.version"
+            gpg {
+                sign = true
+                passphrase = BINTRAY_PASSPHRASE
+            }
+        }
+    }
+
+}
+// Create the pom configuration:
+def pomConfig = {
+    licenses {
+        license {
+            name 'The MIT License'
+            url 'https://opensource.org/licenses/MIT'
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "fjank"
+            name "Frank Karlstrøm"
+            email "frank.karlstrom@gmail.com"
+        }
+    }
+
+    scm {
+        url "https://github.com/fjank/sdc"
+    }
+}
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compileClasspath
+    options {
+        setMemberLevel JavadocMemberLevel.PUBLIC
+        setAuthor true
+        links "https://docs.oracle.com/javase/8/docs/api/"
+    }
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+publishing {
+    publications {
+        SdcPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            artifact sourceJar
+            artifact javadocJar
+            version project.version
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Efficiently selecting spatially distributed keypoints for visual tracking.')
+                root.appendNode('name', 'Suppression via Disc Covering')
+                root.appendNode('url', 'https://github.com/fjank/sdc')
+                root.children().last() + pomConfig
+            }
+        }
+    }
 }

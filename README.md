@@ -15,7 +15,7 @@ this library cannot be used in other circumstances or from other libraries, as t
 ### Setting up the dependency
 Include sdc as a dependency into your project, for example as a Gradle compile time dependency:
 ```
-compile "org:fjank:rdc:1.0.0"
+compile "io.github.fjank:sdc:1.0.0"
 ```
 
 ### Integrating into your project
